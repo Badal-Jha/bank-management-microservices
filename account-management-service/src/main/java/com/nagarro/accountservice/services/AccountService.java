@@ -161,4 +161,12 @@ public class AccountService {
 		}
 
 	}
+
+	public void deleteAccountsById(Long customerId) {
+		try {
+			this.accountRepository.deleteAccountsByCustomerId(customerId);
+		} catch (Exception e) {
+			throw new CustomException("Failed to delete accounts for customer with ID " + customerId, 400);
+		}
+	}
 }

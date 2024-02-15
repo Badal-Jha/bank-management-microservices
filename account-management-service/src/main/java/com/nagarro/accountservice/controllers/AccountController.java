@@ -71,4 +71,10 @@ public class AccountController {
 
 		return ResponseEntity.status(HttpStatus.OK).body("account Number: " + accountNumber + " deleted");
 	}
+
+	// delete all accounts having given customerId
+	@DeleteMapping("/customer/{id}")
+	public void deleteAccounts(@PathVariable("id") Long customerId) {
+		this.accountService.deleteAccountsById(customerId);
+	}
 }

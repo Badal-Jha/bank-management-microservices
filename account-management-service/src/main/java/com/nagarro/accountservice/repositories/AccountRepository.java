@@ -6,4 +6,6 @@ import com.nagarro.accountservice.entities.Account;
 
 public interface AccountRepository extends JpaRepository<Account, String> {
 
+	void deleteAccountsByCustomerId(Long customerId);
+
 }

@@ -2,6 +2,7 @@ package com.nagarro.customerservice.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,9 +54,10 @@ public class CustomerController {
 	}
 
 	// Delete Customer (Deleting customer should also delete the customer account
-	// from account management service)
-
-	public ResponseEntity<String> deleteCustomer() {
-		return ResponseEntity.status(HttpStatus.OK).body("Customer deleted!!");
+	// from account management service
+	@DeleteMapping("/{customerId}")
+	public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Long id) {
+		this.customerService.deleteCustomer(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Customer with id= " + id + " deleted!!");
 	}
 }
