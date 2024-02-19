@@ -15,6 +15,10 @@ import com.nagarro.customerservice.dto.CustomerDto;
 import com.nagarro.customerservice.dto.CustomerResponse;
 import com.nagarro.customerservice.services.CustomerServiceImpl;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,9 +59,19 @@ public class CustomerController {
 
 	// Delete Customer (Deleting customer should also delete the customer account
 	// from account management service
+	
+	@CircuitBreaker(name = "customerService", fallbackMethod = "deleteCustomerFallback")
+	@Retry(name="customerService")
 	@DeleteMapping("/{customerId}")
-	public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Long id) {
-		this.customerService.deleteCustomer(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Customer with id= " + id + " deleted!!");
-	}
+    public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Long id) {
+        this.customerService.deleteCustomer(id);
+        System.out.println("calling delete account");
+        return ResponseEntity.status(HttpStatus.OK).body("Customer with id= " + id + " deleted!!");
+    }
+
+    // Fallback method for deleteCustomer endpoint
+    public ResponseEntity<String> deleteCustomerFallback(Long customerId, Throwable throwable) {
+        String errorMessage = "oops Failed to delete customer with ID: " + customerId+" try after sometime";
+        // Log the error message or perform any necessary fallback actions
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);}
 }
