@@ -89,8 +89,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 		customerRepository.save(customer);
 	}
-
+    
 	public void deleteCustomer(Long customerId) {
+		
 		try {
 			this.customerRepository.deleteById(customerId);
 
@@ -99,7 +100,7 @@ public class CustomerServiceImpl implements CustomerService {
 				this.accountClient.deleteAccounts(customerId);
 			} catch (Exception e) {
 
-				log.error("Failed to delete accounts for customer with ID {}: {}", customerId, e.getMessage());
+				log.error("Failed to delete accounts for customer with ID1 {}: {}", customerId, e.getMessage());
 				throw new CustomException("Failed to delete accounts for customer: " + e.getMessage(),
 						HttpStatus.UNAUTHORIZED.value());
 			}
@@ -108,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
 			throw e;
 		} catch (Exception e) {
 
-			log.error("Failed to delete customer with ID {}: {}", customerId, e.getMessage());
+			log.error("Failed to delete customer with1 ID {}: {}", customerId, e.getMessage());
 			throw new CustomException("Failed to delete customer", HttpStatus.INTERNAL_SERVER_ERROR.value());
 		}
 	}

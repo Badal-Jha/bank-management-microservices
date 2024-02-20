@@ -1,5 +1,7 @@
 package com.nagarro.accountservice.controllers;
 
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +23,12 @@ import com.nagarro.accountservice.exceptions.CustomException;
 import com.nagarro.accountservice.services.AccountService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/account")
 @RequiredArgsConstructor
+@Slf4j
 public class AccountController {
 
 	private final AccountService accountService;
@@ -75,6 +79,7 @@ public class AccountController {
 	// delete all accounts having given customerId
 	@DeleteMapping("/customer/{id}")
 	public void deleteAccounts(@PathVariable("id") Long customerId) {
+		log.info("delete account called");
 		this.accountService.deleteAccountsById(customerId);
 	}
 }
