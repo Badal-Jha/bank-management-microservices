@@ -30,18 +30,98 @@ This project focuses on developing a comprehensive Microservices architecture fo
 To run the project locally, follow these steps:
 1. Clone the repository.
 2. Navigate to the project directory.
-3. Run `docker-compose up` to start the services.
 4. Access the application through the provided endpoints.
+## API Endpoints
 
+### Add Customer
+- **Endpoint**: `POST localhost:8765/api/customer`
+- **Description**: Add a customer to the database
+- **Request Body**:
+  ```json
+  {
+    "firstName": "manav",
+    "lastName": "jha",
+    "email": "manav@gmail.com",
+    "address": "J-325 dilshad colony, Himachal Pradesh, India",
+    "contactNumber": "88605099871"
+  }
+  ```
+
+### Find All Customers
+- **Endpoint**: `GET localhost:8765/api/customer`
+- **Description**: Find all customers in the database
+
+### Get Customer by ID
+- **Endpoint**: `GET localhost:8765/api/customer/{customerId}`
+- **Description**: Find customer with specific ID
+
+### Update Customer
+- **Endpoint**: `PUT localhost:8765/api/customer/{customerId}`
+- **Description**: Update customer information with given ID
+- **Request Body**:
+  ```json
+  {
+    "firstName": "manavupdated",
+    "email": "manav@gmail.com",
+    "address": "J-325 dilshad colony, Himachal Pradesh, India",
+    "contactNumber": "88605099871"
+  }
+  ```
+
+### Create Account
+- **Endpoint**: `POST localhost:8765/api/account/{customerId}`
+- **Description**: Create an account for a customer
+- **Request Body**:
+  ```json
+  {
+    "accountType": "saving"
+  }
+  ```
+
+### Add Amount
+- **Endpoint**: `PUT localhost:8765/api/account/credit`
+- **Description**: Add balance to an account
+- **Request Body**:
+  ```json
+  {
+    "customerId": 7,
+    "accountNumber": "2701065352",
+    "firstName": "manav",
+    "lastName": "jha",
+    "email": "manav@gmail.com",
+    "Amount": 1202.60
+  }
+  ```
+
+### Debit Amount
+- **Endpoint**: `PUT localhost:8765/api/account/debit`
+- **Description**: Withdraw amount from the bank
+- **Request Body**:
+  ```json
+  {
+    "customerId": 7,
+    "accountNumber": "2701065352",
+    "firstName": "manav",
+    "lastName": "jha",
+    "email": "manav@gmail.com",
+    "amount": 1202.60
+  }
+  ```
+
+### Get Account Details
+- **Endpoint**: `GET localhost:8765/api/account/{customerId}/{accountNumber}`
+- **Description**: Get details of an account
+
+### Delete Account
+- **Endpoint**: `DELETE localhost:8765/api/account/{accountNumber}`
+- **Description**: Delete account using account number
+
+### Delete Customer
+- **Endpoint**: `DELETE localhost:8765/api/customer/{customerId}`
+- **Description**: Delete customer with given ID
+
+### Delete Account with Customer ID
+- **Endpoint**: `DELETE localhost:8083/api/account/customer/{customerId}`
+- **Description**: Delete account of a specific customer by customer ID
 ## Contributors
-- [Your Name]
-- [Other contributors]
-
-## License
-This project is licensed under the [License Name] License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgements
-Special thanks to [Acknowledged Person/Team] for their contributions and support.
-
----
-Feel free to customize the readme file further based on your specific project details and requirements.
+- Badal Jha
